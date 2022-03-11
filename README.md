@@ -1,2 +1,2 @@
 # ALeCO_QUBO
-QUBO models, D-Wave compliant Python sources 
+Sorgenti Python per esperimenti con modelli QUBO da interpretare con le API D-Wave.
