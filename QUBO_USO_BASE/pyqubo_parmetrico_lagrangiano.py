@@ -48,3 +48,11 @@ sampleset = sa.sample(qubo, num_reads=10)
 decoded_samples = qubo_implicit.decode_sampleset(sampleset)
 best_sample = min(decoded_samples, key=lambda x: x.energy)
 print(best_sample.sample)
+# Secondo me, dà segmentation fault perché decoded_samples
+# è applicato a qubo_implicit che non è completamente determinato:
+# esso contiene il lagrangiano L con valore ignoto.
+# Questo tentativo è stato giustificato dalla curiosità di
+# "automatizzare" la verifica che non ci siano false risposte,
+# cioè risposte che assicurano il valore minimo per l'intero
+# modello, costituito da Hamiltino obiettivo ed Hamiltoniano
+# penalty.
