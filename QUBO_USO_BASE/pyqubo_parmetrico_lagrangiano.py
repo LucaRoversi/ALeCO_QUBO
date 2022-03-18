@@ -3,7 +3,7 @@
 ## Modelli con Lagrangiano
 # ========================
 print("## Modelli con Lagrangiano")
-# Il problema Numer Partition non ha vincoli espliciti da trasformare in un Hamiltoniano
+# Il problema Number Partition non ha vincoli espliciti da trasformare in un Hamiltoniano
 # penalità, da pesare per mezzo del coeffieciente Lagrangiano.
 # 
 # Ci concetriamo quindi su un problema diverso, con le seguenti caratteristiche:
