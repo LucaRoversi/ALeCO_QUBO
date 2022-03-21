@@ -13,7 +13,7 @@
 # dello spazio degli stati
 # - sua rappresentazione come BQM, da sottoporre ad un campionatore
 # - estrazione di (liste di) attributi
-# - estrazione di risposte con Simulated Annealing e ExactSolver
+# - estrazione di risposte con Simulated Annealing
 ##################################################################################
 
 #################################
@@ -54,59 +54,58 @@ ham = ham_obiettivo + L * ham_penalita
 # dai campionatori applicabili ad un BQM (Binary Quadratic Model).
 ham_internal = ham.compile()
 
+print("-----------------------------")
 # BQM corrispondete all'Hamiltoniano ham.
 # È nuovamente una rappresentazione interna che gioca il ruolo
 # della matrice quadrata triangolare superiore, o simmetrica,
 # che caratterizza una istanza QUBO.
 #bqm = ham_internal.to_bqm(feed_dict={'L': 2})
 bqm = ham_internal.to_bqm()
-print(bqm)
+print("bqm: ", bqm)
 
 # Alcuni attributi del BQM.
-print("Componenti lineari: ", bqm.linear)           # lineari
-print("Componenti quadratiche: ", bqm.quadratic)    # quadratiche
-print("Offset: ", bqm.offset)                       # scostamento costante da 0?
+print(" -- bqm (componenti lineari): ", bqm.linear)           # lineari
+print(" -- bqm (componenti quadratiche): ", bqm.quadratic)    # quadratiche
+print(" -- bqm (offset): ", bqm.offset)                       # scostamento costante da 0?
 
 ####################################################################
 # Campionamento con Simulated Annealing
 # -------------------------------------
 # Lo scopo è estrarre tutte le risposte, cioè le soluzioni che 
 # soddisfano il vincolo e che hanno energia minima.
-# Un passo intermedio è individuare l'esistenza di non soluzioni,
-# cioè di campioni che non soddsifano il vincolo (esplicito).
 ####################################################################
 import neal
 # Istanza del campionatore scelto
 SA = neal.SimulatedAnnealingSampler()
 
-# Campionatura sul BQM tale che:
-# - ??
-# - ??
-sampleset = SA.sample(bqm, num_reads=10)
-print(sampleset)
+# Campionatura sul BQM.
+sampleset = SA.sample(bqm, num_reads=3)
+print("Sampleset: ",sampleset)
 #       ==> [DecodedSample(decoded_subhs=[Constraint(a + b = 1,energy=1.000000)] ...
 
+print("-----------------------------")
 # Rappresentazione ad array della campionatura con attributi accessibili:
 decoded_sampleset = ham_internal.decode_sampleset(sampleset)
-print(decoded_sampleset)
+print("Decoded_samplset: ", decoded_sampleset)
 #   - singolo campione;
-print(decoded_sampleset[0])
+print(" -- decoded_sampleset[0]: ", decoded_sampleset[0])
 #   - lista dei campioni;
-print(list(map(lambda x: x.sample       , decoded_sampleset)))
+print(" -- lista dei sample estratti dal decoded_sampleset: ", [x.sample for x in decoded_sampleset])
 #   - lista delle energie di ogni campione;
-print(list(map(lambda x: x.energy       , decoded_sampleset)))
+print(" -- lista delle sole enerige dei sample estratti dal decoded_sampleset: ",  [x.energy for x in decoded_sampleset])
 #   - lista dei vincoli di ogni campione;
-print(list(map(lambda x: x.constraints(), decoded_sampleset)))
+print(" -- lista dei soli constraint dei sample estratti dal decoded_sampleset: ", [x.constraints() for x in decoded_sampleset])
 #   - lista dei campioni che non soddisfano il vincolo:
 #       -- {'b': 0, 'a': 0} se il vincolo non è soddisfatto;
 #       -- None             se il vincolo     è soddisfatto.
-print(list(map(lambda s: (s.sample if (s.constraints().get('a + b = 1')[0]) == False else None), decoded_sampleset)))
+print(" -- lista dei sample che non soddisfano il constraint:", [s.sample for s in decoded_sampleset if not(s.constraints().get('a + b = 1')[0])])
 
-# Uno dei migliori campioni, cioè uno tra quelli con energia minima.
-best_sample = min(decoded_sampleset, key=(lambda s: s.energy))
-print(best_sample.sample)
-# Energia di uno dei migliori campioni che soddisfino, o meno, il vincolo
-print(best_sample.energy)
+print("-----------------------------")
+# Energia minima dei sample che soddisfano il constraint.
+best_energy = min([s.energy for s in decoded_sampleset if (s.constraints().get('a + b = 1')[0]) ])
+print("Energia minima dei sample che soddisfano il constraint: ", best_energy)
 
-# Tutti i campioni con energia minima che soddisfano i vincoli
-print(list(map(lambda s: (s.sample if (s.constraints().get('a + b = 1')[0]) == True and (s.energy == best_sample.energy) else None), decoded_sampleset)))
+print("-----------------------------")
+# Lista con tutte risposte, cioè soluzioni con energia minima che soddisfano i vincoli
+answers = [s.sample for s in decoded_sampleset if (s.energy == best_energy) and (s.constraints().get('a + b = 1')[0])]
+print("Tutte e sole le risposte con energia minima {} sono {}.".format(best_energy,answers))
