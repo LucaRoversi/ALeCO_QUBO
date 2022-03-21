@@ -74,9 +74,9 @@ print(" -- bqm (offset): ", bqm.offset)                       # scostamento cost
 # Lo scopo è estrarre tutte le risposte, cioè le soluzioni che 
 # soddisfano il vincolo e che hanno energia minima.
 ####################################################################
-import neal
+from  neal import SimulatedAnnealingSampler
 # Istanza del campionatore scelto
-SA = neal.SimulatedAnnealingSampler()
+SA = SimulatedAnnealingSampler()
 
 # Campionatura sul BQM.
 sampleset = SA.sample(bqm, num_reads=3)
