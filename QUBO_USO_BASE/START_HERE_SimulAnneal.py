@@ -143,5 +143,5 @@ print("Tutte e sole le risposte con energia minima {} sono {}.".format(best_ener
 #
 # 2) Non ci sono regole assolute per ricavare il lagrangiano.
 # Nel filmato di riferimento si afferma che, se uno passa molto tempo per trovare il 
-# lagrangiano, può rivolgersi ad un CQM solver che lo 'calcola', in accordo con la speaker. 
+# lagrangiano, si può esprimere il problema per un CQM solver che lo 'calcola', in accordo con la speaker. 
 # È quindi interessante guardare il codice dei CQM per capire come si può fare.
