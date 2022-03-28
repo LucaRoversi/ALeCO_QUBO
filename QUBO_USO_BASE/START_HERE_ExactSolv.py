@@ -49,7 +49,7 @@ L = 1
 ham = ham_obiettivo + L * ham_penalita 
 
 # Rappresentazione interna (D-Wave) dell'hamoltoniano.
-# Sercirà per poter decodificare la struttura restituita dal campionatore
+# Servirà per poter decodificare la struttura restituita dal campionatore
 # che viene applicato ad un BQM (Binary Quadratic Model).
 ham_internal = ham.compile()
 
