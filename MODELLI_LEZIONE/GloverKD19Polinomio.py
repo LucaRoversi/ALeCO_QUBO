@@ -3,12 +3,12 @@
 ######################################
 from pyqubo import Binary # Un modello QUBO per ogni variabile binaria [0,1]
 
-x1, x2, x3, x4 = Binary('x1'), Binary('x2'), Binary('x3'), Binary('x4')
+x0, x1, x2, x3 = Binary('x0'), Binary('x1'), Binary('x2'), Binary('x3')
 
 # Codifica (ovvia) della funzione obiettivo.
-ham = -5*x1 -3*x2 -8*x3 -6*x4 \
-      +4*x1*x2 +8*x1*x3 \
-      +4*x2*x3 +10*x3*x4
+ham = -5*x0 -3*x1 -8*x2 -6*x3 \
+      +4*x0*x1 +8*x0*x2 \
+      +4*x1*x2 +10*x2*x3
 
 # Rappresentazione interna (D-Wave) dell'hamoltoniano.
 # Servirà per poter decodificare la struttura restituita dal campionatore
