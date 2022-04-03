@@ -39,9 +39,25 @@ ham = ham_objective + alpha * ham_penalty
 # che viene applicato ad un BQM (Binary Quadratic Model).
 ham_internal = ham.compile()
 
+print("-----------------------------")
+# BQM corrispondete all'Hamiltoniano ham.
+# È nuovamente una rappresentazione interna che gioca il ruolo
+# della matrice quadrata triangolare superiore, o simmetrica,
+# che caratterizza una istanza QUBO.
+bqm = ham_internal.to_bqm()
+print("bqm: ", bqm)
+
 print("--------------------------")
 print("Hamiltoniano in forma interna:\n", ham_internal)
 
+
+####################################################################
+# Campionamento con ExactSolver (visita BF)
+# -----------------------------------------
+# Lo scopo è estrarre tutte le risposte, cioè le soluzioni che 
+# soddisfano il vincolo e che hanno energia minima.
+####################################################################
+from neal import SimulatedAnnealingSampler
 print("-----------------------------")
 # Istanza del campionatore scelto
 SA = SimulatedAnnealingSampler()
@@ -92,4 +108,4 @@ print("Energia minima dei sample che soddisfano il constraint: ", best_energy)
 print("-----------------------------")
 # Lista con tutte risposte, cioè soluzioni con energia minima che soddisfano i vincoli
 answers = [s.sample for s in decoded_sampleset if (s.energy == best_energy) and (s.constraints().get('a + b = 1')[0])]
-print("Tutte e sole le risposte con energia minima {} sono {}.".format(best_energy))
+print("Tutte e sole le risposte con energia minima {} sono {}.".format(best_energy,answers))
