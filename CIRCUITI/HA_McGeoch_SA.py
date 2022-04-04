@@ -63,49 +63,19 @@ print("-----------------------------")
 SA = SimulatedAnnealingSampler()
 print(" SA.parameters: ", SA.parameters)
 
+####################################
+# Calcola la somma dei due bit a e b
+a, b = 0, 1
 
-# Campionatura sul BQM.
-sampleset = SA.sample(bqm, num_reads=10)
-print("Sampleset:\n",sampleset)
-# La colonna 'num_oc.' sembra dover indicare il numero di volte che
-# il sample corrispondente occorre nell'insieme di samples, ma
-# stranamente(?) ad ogni sample viene contato una volta, indipendentemente
-# dal fatto che nella tabella occorra più volte.
+num_reads_count = 2
+found = False
+while (not found):
+    # Campionatura sul BQM.
+    sampleset = SA.sample(bqm, num_reads=num_reads_count)
+    print(sampleset)
+    decoded_sampleset = ham_internal.decode_sampleset(sampleset)
+    bit_sum = [x.sample for x in decoded_sampleset if (x.sample["a"] == a) and (x.sample["b"] == b)]
+    found = not(bit_sum == [])
+    num_reads_count = num_reads_count + 1
 
-print("-----------------------------")
-# Rappresentazione ad array della campionatura con attributi accessibili:
-decoded_sampleset = ham_internal.decode_sampleset(sampleset)
-print("Decoded_samplset: ", decoded_sampleset)
-#   - singolo campione;
-print(" -- decoded_sampleset[0]: ", decoded_sampleset[0])
-#   - lista dei campioni;
-print(" -- lista dei sample estratti dal decoded_sampleset: ", \
-    [x.sample for x in decoded_sampleset])
-#   - lista delle energie di ogni campione;
-print(" -- lista delle sole enerige dei sample estratti dal decoded_sampleset: ",  \
-    [x.energy for x in decoded_sampleset])
-#   - lista dei vincoli di ogni campione;
-print(" -- lista dei soli constraint dei sample estratti dal decoded_sampleset: ", \
-     [x.constraints() for x in decoded_sampleset])
-#   - lista dei campioni che non soddisfano il vincolo:
-#       -- {'b': 0, 'a': 0} se il vincolo non è soddisfatto;
-#       -- None             se il vincolo     è soddisfatto.
-print(" -- lista dei sample che non soddisfano il constraint:", \
-    [s.sample for s in decoded_sampleset if not(s.constraints().get('a + b = 1')[0])])
-# Secondo:
-# https://docs.ocean.dwavesys.com/en/latest/docs_dimod/reference/generated/dimod.SampleSet.filter.html
-# se il sampleset offre l'attributo 'is_feasible', che indica se ilsample soddisfa i constraint,
-# si può usare:
-#feasible_sampleset = sampleset.filter(lambda d: d.is_feasible)
-
-print("-----------------------------")
-# Energia minima dei sample che soddisfano il constraint.
-best_energy = min([s.energy for s in decoded_sampleset if (s.constraints().get('a + b = 1')[0]) ])
-print("Energia minima dei sample che soddisfano il constraint: ", best_energy)
-# Un'alternativa è usare 
-# print(sampleset.first.energy) per avere l'ergia del sample con energia minima.
-
-print("-----------------------------")
-# Lista con tutte risposte, cioè soluzioni con energia minima che soddisfano i vincoli
-answers = [s.sample for s in decoded_sampleset if (s.energy == best_energy) and (s.constraints().get('a + b = 1')[0])]
-print("Tutte e sole le risposte con energia minima {} sono {}.".format(best_energy,answers))
+print("{}+{} = (s:{}, c:{})".format(str(a),str(b),str(bit_sum[0]["s"]),str(bit_sum[0]["c"])))
