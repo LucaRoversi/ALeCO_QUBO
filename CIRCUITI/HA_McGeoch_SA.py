@@ -2,6 +2,17 @@
 ## Half Adder come formalizzato in 
 ## Theory versus practice in annealing-based quantum computing
 ## Catherine C. McGeoch
+##
+## Somma due bit a, b, fissati, usando SA come campionatore.
+## Lo scopo è evidenziare il comportamento aleatorio di SA.
+##
+## Siccome SA ha un comportamento aleatorio, occorre un certo 
+## numero di tentativi per avere l'istanza della relazione 
+## con a, b e la corrispondente coppia s, c.
+## 
+## Il campionamento con SA avviene per tentativi, con
+## un solo ciclo di campionamenti per volta, finché non 
+## viene campionata l'istanza cercata.
 ##############################################################
 
 from pyqubo import Binary # Un modello QUBO per ogni variabile binaria [0,1]
@@ -67,7 +78,8 @@ print(" SA.parameters: ", SA.parameters)
 # Calcola la somma dei due bit a e b
 a, b = 0, 1
 
-num_reads_count = 2
+num_reads_count = 1
+num_iter = 0
 found = False
 while (not found):
     # Campionatura sul BQM.
@@ -76,6 +88,9 @@ while (not found):
     decoded_sampleset = ham_internal.decode_sampleset(sampleset)
     bit_sum = [x.sample for x in decoded_sampleset if (x.sample["a"] == a) and (x.sample["b"] == b)]
     found = not(bit_sum == [])
-    num_reads_count = num_reads_count + 1
+    num_iter += 1
+    # nnum_reads_count = num_reads_count + 1 # decommentare se ad ogni iterazione
+                                             # si vuole incrementare il numero di
+                                             # campioni generati
 
-print("{}+{} = (s:{}, c:{})".format(str(a),str(b),str(bit_sum[0]["s"]),str(bit_sum[0]["c"])))
+print("{}+{} = (s:{}, c:{}) con {} tentativi".format(str(a),str(b),str(bit_sum[0]["s"]),str(bit_sum[0]["c"]),str(num_iter)))
