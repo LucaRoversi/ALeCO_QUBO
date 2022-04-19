@@ -96,7 +96,7 @@ print(" -- decoded_sampleset[0]: ", decoded_sampleset[0])
 print(" -- lista dei sample estratti dal decoded_sampleset: ", \
     [x.sample for x in decoded_sampleset])
 #   - lista delle energie di ogni campione;
-print(" -- lista delle sole enerige dei sample estratti dal decoded_sampleset: ",  \
+print(" -- lista delle sole energie dei sample estratti dal decoded_sampleset: ",  \
     [x.energy for x in decoded_sampleset])
 #   - lista dei vincoli di ogni campione;
 print(" -- lista dei soli constraint dei sample estratti dal decoded_sampleset: ", \
