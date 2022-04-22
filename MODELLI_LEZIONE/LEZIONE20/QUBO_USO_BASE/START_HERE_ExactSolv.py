@@ -118,7 +118,7 @@ print("-----------------------------")
 best_energy = min([s.energy for s in decoded_sampleset if (s.constraints().get('a + b = 1')[0]) ])
 print("Energia minima dei sample che soddisfano il constraint: ", best_energy)
 # Un'alternativa è usare 
-# print(sampleset.first.energy) per avere l'ergia del sample con energia minima.
+# print(sampleset.first.energy) per avere l'nergia del sample con energia minima.
 
 print("-----------------------------")
 # Lista con tutte risposte, cioè soluzioni con energia minima che soddisfano i vincoli
