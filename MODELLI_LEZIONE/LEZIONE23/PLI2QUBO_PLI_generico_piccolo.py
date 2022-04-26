@@ -1,6 +1,6 @@
 # https://pyqubo.readthedocs.io/en/latest/getting_started.html#solve-qubo-by-dimod-sampler
 
-## Sviluppo di un simile, nello spirito, ma più maneggevole, dell'Esempio alla Sezione 5.3 
+## Sviluppo di un esercizio simile nello spirito, ma più maneggevole, dell'Esempio alla Sezione 5.3 
 # "General 0/1 Programming", pag. 24 de https://arxiv.org/ftp/arxiv/papers/1811/1811.11538.pdf .
 # Lo scopo è passare da un problema espresso come insieme di vincoli in PLI alla sua forma QUBO.
 # 

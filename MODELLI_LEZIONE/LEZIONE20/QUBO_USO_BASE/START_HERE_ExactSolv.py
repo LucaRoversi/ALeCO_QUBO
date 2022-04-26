@@ -45,7 +45,7 @@ ham_penalita  = Constraint((a + b - 1)**2, label='a + b = 1')
 # Istanza del Lagrangiano.
 L = 1
 
-# hamiltoniano completo nella rappresentazione funzionale ovvia.
+# Hamiltoniano completo nella rappresentazione funzionale ovvia.
 ham = ham_obiettivo + L * ham_penalita 
 
 # Rappresentazione interna (D-Wave) dell'hamoltoniano.
