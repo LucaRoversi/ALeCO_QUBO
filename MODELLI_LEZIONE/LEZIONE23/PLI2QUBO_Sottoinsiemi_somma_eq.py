@@ -12,6 +12,12 @@ print(" pag. 6 de: \" Quantum Bridge Analytics I: A Tutorial\"")
 from pyqubo import Binary, Constraint, Placeholder
 
 x1, x2, x3, x4, x5 = Binary('x1'), Binary('x2'), Binary('x3'), Binary('x4'), Binary('x5')
+
+
+################################################################################ 
+################################################################################ 
+# Prima istanza, con due risposte
+################################################################################ 
 v1 = 1
 v2 = 3
 v3 = 4
@@ -68,3 +74,61 @@ print(" -- lista dei sample estratti dal decoded_sampleset: ", \
     [x.sample for x in decoded_sampleset])
 
 
+################################################################################ 
+################################################################################ 
+# Seconda istanza, senza risposte
+################################################################################ 
+v1 = 1
+v2 = 1
+v3 = 1
+v4 = 1
+v5 = 1
+
+# Hamiltoniano completo nella rappresentazione funzionale ovvia.
+ham = ((v1+v2+v3+v4+v5) - 2*(x1*v1+x2*v2+x3*v3+x4*v4+x5*v5))**2
+
+# Rappresentazione interna (D-Wave) dell'hamoltoniano.
+# Servirà per poter decodificare la struttura restituita dal campionatore
+# che viene applicato ad un BQM (Binary Quadratic Model).
+ham_internal = ham.compile()
+
+print("-----------------------------")
+# BQM corrispondete all'Hamiltoniano ham.
+# È nuovamente una rappresentazione interna che gioca il ruolo
+# della matrice quadrata triangolare superiore, o simmetrica,
+# che caratterizza una istanza QUBO.
+bqm = ham_internal.to_bqm()
+print("bqm: ", bqm)
+
+# Alcuni attributi del BQM.
+print(" -- bqm (componenti lineari): ", bqm.linear)           # lineari
+print(" -- bqm (componenti quadratiche): ", bqm.quadratic)    # quadratiche
+print(" -- bqm (offset): ", bqm.offset)                       # scostamento costante da 0?
+
+####################################################################
+# Campionamento con ExactSolver (visita BF)
+# -----------------------------------------
+# Lo scopo è estrarre tutte le risposte, cioè le soluzioni che 
+# soddisfano il vincolo e che hanno energia minima.
+####################################################################
+from dimod import ExactSolver
+
+print("-----------------------------")
+# Istanza del campionatore scelto
+ES = ExactSolver()
+print(" ES.parameters: ", ES.parameters)
+
+
+print("-----------------------------")
+# Campionatura sul BQM.
+sampleset = ES.sample(bqm)
+print("Sampleset:\n",sampleset)
+#       ==> [DecodedSample(decoded_subhs=[Constraint(a + b = 1,energy=1.000000)] ...
+
+print("-----------------------------")
+# Rappresentazione ad array della campionatura con attributi accessibili:
+decoded_sampleset = ham_internal.decode_sampleset(sampleset)
+print("Decoded_samplset: ", decoded_sampleset)
+#   - singolo campione;
+print(" -- lista dei sample estratti dal decoded_sampleset: ", \
+    [x.sample for x in decoded_sampleset])
