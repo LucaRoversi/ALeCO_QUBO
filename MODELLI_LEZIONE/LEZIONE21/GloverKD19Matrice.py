@@ -1,16 +1,30 @@
-######################################
-## Versione QUBO con matrice esplicita
-######################################
-from pyqubo import Binary # Un modello QUBO per ogni variabile binaria [0,1]
+###################################################################################
+# Esempio sviluppato a pag. 5, Sezione 2 de:
+# "Quantum Bridge Analytics {I:} a tutorial on formulating and using {QUBO} models"
+# 
+# Usiamo la API per definire una versione QUBO del modello di esempi, esplicitando
+# la matrice triangolare superiore corrispondente.
+# Al contrario, l'esempio originale usa una matrice simmetrica.
+###################################################################################
+
+# Intuitivamente, Binary è una classe che permette (anche) di vedere singole 
+# variabili come 'binary quadratic model'.
+# (https://pyqubo.readthedocs.io/en/latest/reference/express.html)
+#
+from pyqubo import Binary 
 num_vars = 4
 
+# Definire parametricamente nomi di variabile.
+#
 variables = [Binary(f'x{j}') for j in range(num_vars)]
 
-# Elenco variabili appena definite
+# Elenco variabili appena definite.
+#
 for i in variables:
     print("Variabile {}".format(i))
 
-# Matrice QUBO
+# Matrice come dictionary sulle variabili definite.
+#
 Q = {('x0','x0'): -5
     ,('x1','x1'): -3
     ,('x2','x2'): -8
@@ -22,25 +36,49 @@ Q = {('x0','x0'): -5
 print("--------------------------")
 print("Matrice QUBO:\n", Q)
 
-# Rappresentazione interna del modello QUBO
+# Rappresentazione interna del modello QUBO.
+#
+# La documentazione chiama 'QUBO' la  matrice
+# w 'binary quadratic model' la rappresentazione interna.
+# (dimod.BinaryQuadraticModel.from_qubo
+# https://test-projecttemplate-dimod.readthedocs.io/en/latest/reference/bqm/generated/dimod.BinaryQuadraticModel.from_qubo.html)
+#
 from dimod import BinaryQuadraticModel
 bqm = BinaryQuadraticModel.from_qubo(Q)
 print("--------------------------")
 print("Rappresentazione QUBO:\n", bqm)
 
-# "Campionamento" esaustivo spazio degli stati
+
+# "Campionamento" esaustivo spazio degli stati.
+#
+# ExactSolver è una visita BF dello spazio degli stati relativo al 'binary quadratic model',
+# cioè alla rappresentazione interna del QUBO/matrice.
+# (https://test-projecttemplate-dimod.readthedocs.io/en/latest/reference/sampler_composites/samplers.html)
+#
 from dimod import ExactSolver
 ES = ExactSolver()
 print("--------------------------")
 print("Visita BF spazio stati:\n", ES.sample(bqm))
 
-# Soluzione con  Simulated Annealing
+
+# "Campionamento" spazio degli stati tramite Simulated Annealing.
+#
+# La documentazione è oltremodo scarna. 
+# (https://test-projecttemplate-dimod.readthedocs.io/en/latest/reference/sampler_composites/samplers.html)
+# I parametri dovrebbero avere il seguente significato:
+# -- num_reads è il numero di righe stampate;
+# -- num_sweeps è il numero di iterazioni che l'algorimto esegue per convergere al minimo globale.
+# La prova sperimentale per confermare l'ipotesi si può avere:
+# -- limitando ad 1 il numero di campioni che costituiscono la risposta;
+# -- interpretando l'algoritmo con numeri crescenti di num_sweeps.
+# 'Risultati' non da prove a mano, non automatizzate:
+# -- num_sweeps= 1 --> ogni chiamata restituisce una risposta diversa
+# -- num_sweeps= 2 --> ogni chiamata restituisce una risposta diversa
+# -- num_sweeps= 3 --> la risposta (energy=-11) compare frequentemente, ma inframezzata da non risposte
+# -- num_sweeps=10 --> la risposta (energy=-11) compare nella quasi totalità dei casi.
+#
 from neal import SimulatedAnnealingSampler
 SA = SimulatedAnnealingSampler()
 print("--------------------------")
-print("Campionamento spazio stati con Simulated Annealer:\n" \
-        , SA.sample(bqm, num_reads=3, num_sweeps=10))
-
-
-
-
+print("Campionamento spazio stati con Simulated Annealing:\n" \
+        , SA.sample(bqm, num_reads=1, num_sweeps=100))
