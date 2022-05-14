@@ -1,6 +1,7 @@
 ## Sviluppo del problema che nella Sezione 3.1 de
 # "General 0/1 Programming", pag. 24 de https://arxiv.org/ftp/arxiv/papers/1811/1811.11538.pdf .
-# viene chiamato "Number Partitioning Problem" e che io chiamo "Sottoinsiemi a Somma Identica".
+# viene chiamato "Number Partitioning Problem" e che abbiamo già visto come 
+# "Sottoinsiemi a Somma Identica".
 # 
 # È uno dei problemi che, con la formulazione corretta, è immediatamente in forma QUBO, anche
 # se implicita.
@@ -48,7 +49,7 @@ print(" -- bqm (offset): ", bqm.offset)                       # scostamento cost
 ####################################################################
 # Campionamento con ExactSolver (visita BF)
 # -----------------------------------------
-# Lo scopo è estrarre tutte le risposte, cioè le soluzioni che 
+# Estrarre tutte le risposte, cioè le soluzioni che 
 # soddisfano il vincolo e che hanno energia minima.
 ####################################################################
 from dimod import ExactSolver
