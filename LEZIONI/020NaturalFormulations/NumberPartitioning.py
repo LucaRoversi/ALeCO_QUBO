@@ -1,5 +1,5 @@
 ## Sviluppo del problema che nella Sezione 3.1 de
-# "General 0/1 Programming", pag. 24 de https://arxiv.org/ftp/arxiv/papers/1811/1811.11538.pdf .
+# "General 0/1 Programming", pag. 6 de https://arxiv.org/ftp/arxiv/papers/1811/1811.11538.pdf .
 # viene chiamato "Number Partitioning Problem" e che abbiamo già visto come 
 # "Sottoinsiemi a Somma Identica".
 # 

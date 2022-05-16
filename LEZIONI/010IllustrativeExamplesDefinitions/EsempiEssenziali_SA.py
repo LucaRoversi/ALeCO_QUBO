@@ -82,7 +82,7 @@ print(" SA.parameters: ", SA.parameters)
 
 
 # Campionatura sul BQM.
-sampleset = SA.sample(bqm, num_reads=10)
+sampleset = SA.sample(bqm, num_reads=10, num_sweeps=100)
 print("Sampleset:\n",sampleset)
 # La colonna 'num_oc.' sembra dover indicare il numero di volte che
 # il sample corrispondente occorre nell'insieme di samples, ma
