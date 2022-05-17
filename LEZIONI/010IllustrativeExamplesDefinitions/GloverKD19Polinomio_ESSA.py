@@ -2,7 +2,7 @@
 # Implementiamo un esempio in:
 # "Quantum Bridge Analytics I: A Tutorial on Formulating and Using QUBO Models",
 # ripreso anche dalle dispense, esplicitando direttamente il polinomio da
-# minimizzare.te.
+# minimizzare.
 #
 # L'esempio originale usa una matrice simmetrica.
 ###################################################################################
