@@ -1,12 +1,11 @@
 ###################################################################################
-# Esempio sviluppato a pag. 5, Sezione 2 de:
-# "Quantum Bridge Analytics {I:} a tutorial on formulating and using {QUBO} models"
-# 
-# Usiamo la API per definire una versione QUBO del modello di esempi, esplicitando
-# la matrice triangolare superiore corrispondente.
-# Al contrario, l'esempio originale usa una matrice simmetrica.
+# Implementiamo un esempio in:
+# "Quantum Bridge Analytics I: A Tutorial on Formulating and Using QUBO Models",
+# ripreso anche dalle dispense, esplicitando la matrice triangolare superiore 
+# corrispondente.
+#
+# L'esempio originale usa una matrice simmetrica.
 ###################################################################################
-
 # Intuitivamente, Binary è una classe che permette (anche) di vedere singole 
 # variabili come 'binary quadratic model'.
 # (https://pyqubo.readthedocs.io/en/latest/reference/express.html)
@@ -38,16 +37,15 @@ print("Matrice QUBO:\n", Q)
 
 # Rappresentazione interna del modello QUBO.
 #
-# La documentazione chiama 'QUBO' la  matrice
-# w 'binary quadratic model' la rappresentazione interna.
+# La documentazione chiama 'qubo' la  matrice Q
+# e 'binary quadratic model' la rappresentazione interna.
 # (dimod.BinaryQuadraticModel.from_qubo
 # https://test-projecttemplate-dimod.readthedocs.io/en/latest/reference/bqm/generated/dimod.BinaryQuadraticModel.from_qubo.html)
 #
 from dimod import BinaryQuadraticModel
 bqm = BinaryQuadraticModel.from_qubo(Q)
 print("--------------------------")
-print("Rappresentazione QUBO:\n", bqm)
-
+print("Rappresentazione BQM:\n", bqm)
 
 # "Campionamento" esaustivo spazio degli stati.
 #
@@ -72,7 +70,7 @@ print("Visita BF spazio stati:\n", ES.sample(bqm))
 # -- limitando ad 1 il numero di campioni che costituiscono la risposta;
 # -- interpretando l'algoritmo con numeri crescenti di num_sweeps.
 # 'Risultati' non da prove a mano, non automatizzate:
-# -- num_sweeps= 1 --> ogni chiamata restituisce una risposta diversa
+# -- num_sweeps= 1 --> ogni chiamata restituisce una risposta diversa 
 # -- num_sweeps= 2 --> ogni chiamata restituisce una risposta diversa
 # -- num_sweeps= 3 --> la risposta (energy=-11) compare frequentemente, ma inframezzata da non risposte
 # -- num_sweeps=10 --> la risposta (energy=-11) compare nella quasi totalità dei casi.

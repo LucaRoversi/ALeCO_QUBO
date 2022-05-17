@@ -1,10 +1,10 @@
 ###################################################################################
-# Esempio sviluppato a pag. 5, Sezione 2 de:
-# "Quantum Bridge Analytics {I:} a tutorial on formulating and using {QUBO} models"
-# 
-# Usiamo la API per definire una versione QUBO del modello di esempi, esplicitando
-# la matrice triangolare superiore corrispondente.
-# Al contrario, l'esempio originale usa una matrice simmetrica.
+# Implementiamo un esempio in:
+# "Quantum Bridge Analytics I: A Tutorial on Formulating and Using QUBO Models",
+# ripreso anche dalle dispense, esplicitando direttamente il polinomio da
+# minimizzare.te.
+#
+# L'esempio originale usa una matrice simmetrica.
 ###################################################################################
 from pyqubo import Binary # Un modello QUBO per ogni variabile binaria [0,1]
 
@@ -20,21 +20,21 @@ ham = -5*x0 -3*x1 -8*x2 -6*x3 \
       +4*x0*x1 +8*x0*x2 \
       +4*x1*x2 +10*x2*x3
 
-# Compilazione della funzione obiettivo in BQM.
+# Compilazione della funzione obiettivo in un formato interno.
 # 
 # Servirà per poter decodificare la struttura restituita dal campionatore
-# che verrà applicato ad un BQM.
+# che verrà applicato ad un 'binary quadratic model'.
 #
 ham_internal = ham.compile()
 print("--------------------------")
 print("Hamiltoninao in forma interna:\n", ham_internal)
 
-# Hamiltoniano come BQM (formato interno)
+# Da Hamiltoniano in forma interna a 'binary quadratic model'
 #
 from dimod import BinaryQuadraticModel
 bqm = ham_internal.to_bqm()
 print("--------------------------")
-print("Rappresentazione QUBO:\n", bqm)
+print("Rappresentazione BQM:\n", bqm)
 
 # "Campionamento" spazio degli stati tramite Simulated Annealing.
 #
@@ -43,4 +43,3 @@ SA = SimulatedAnnealingSampler()
 print("--------------------------")
 print("Campionamento spazio stati con Simulated Annealing:\n" \
         , SA.sample(bqm, num_reads=1, num_sweeps=100))
-      
