@@ -1,7 +1,6 @@
-##############################
-# Minimun Vertex Cover to QUBO
-# ============================
-# Risolviamo un'istanza del problema relativa al grafo:
+################################################################################
+# Risolviamo correttamente un'istanza del problema Minimun Vertex Cover 
+# relativa al grafo:
 # 
 #              v2--v3
 #               |   | \
@@ -9,11 +8,20 @@
 #               |   | /
 #              v1--v4
 #
+# usando un campionatore esaustivo.
+# L'esempio è tratto da:
+# "Quantum Bridge Analytics I: A Tutorial on Formulating and Using QUBO Models".
+################################################################################
 from pyqubo import Binary, Constraint, Placeholder
 
 v1, v2, v3, v4, v5 = Binary('v1'), Binary('v2'), Binary('v3'), Binary('v4'), Binary('v5')
 
+# Hamiltoniano espresso nella forma naturale di un polinomio.
+#
 ham_obiettivo  = v1 + v2 + v3 + v4 + v5
+
+# Elenco dei polinomi penalità con cui estenderemo l'Hamiltoniano.
+#
 ham_penalita   = Constraint(1 - v1 - v2 + v1*v2, label="constr0")
 ham_penalita  += Constraint(1 - v2 - v3 + v2*v3, label="constr1") 
 ham_penalita  += Constraint(1 - v3 - v4 + v3*v4, label="constr2") 
@@ -21,11 +29,12 @@ ham_penalita  += Constraint(1 - v4 - v1 + v4*v1, label="constr3")
 ham_penalita  += Constraint(1 - v3 - v5 + v3*v5, label="constr4") 
 ham_penalita  += Constraint(1 - v4 - v5 + v4*v5, label="constr5") 
 
-# UNa possibile istanza corretta del Lagrangiano.
+# Una possibile istanza corretta del Lagrangiano.
 #
 L = 2
 
-# Hamiltoniano completo nella rappresentazione funzionale ovvia.
+# Hamiltoniano completo nella rappresentazione funzionale ovvia,
+# con lagrangiano e penalità.
 #
 ham = ham_obiettivo + L * ham_penalita 
 
@@ -52,9 +61,6 @@ print(" -- bqm (offset): ", bqm.offset)                       # scostamento cost
 
 ####################################################################
 # Campionamento con ExactSolver (visita BF)
-# -----------------------------------------
-# Lo scopo è estrarre tutte le risposte, cioè le soluzioni che 
-# soddisfano il vincolo e che hanno energia minima.
 ####################################################################
 from dimod import ExactSolver
 
@@ -115,3 +121,16 @@ answers = [s.sample for s in decoded_sampleset \
         s.constraints().get('constr4')[0] and \
         s.constraints().get('constr5')[0]]
 print("Tutte e sole le risposte con energia minima {} che soddisfano i vincoli: {}.".format(best_energy,answers))
+
+print("-----------------------------")
+# Lista con tutte le non soluzioni (sample che non soddisfano almeno un vinvolo) 
+# ma che hanno energia minima.
+answers = [s.sample for s in decoded_sampleset \
+    if (s.energy == best_energy) and \
+        (not(s.constraints().get('constr0')[0]) or \
+        not(s.constraints().get('constr1')[0]) or \
+        not(s.constraints().get('constr2')[0]) or \
+        not(s.constraints().get('constr3')[0]) or \
+        not(s.constraints().get('constr4')[0]) or \
+        not(s.constraints().get('constr5')[0]))]
+print("Tutte e sole le *non* risposte con energia minima {}: {}.".format(best_energy,answers))

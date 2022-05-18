@@ -1,6 +1,6 @@
 #################################################################################
-# Implementiamo il problema "Number Partitioning Problem", già visto come 
-# "Sottoinsiemi a Somma Identica",  da:
+# Implementiamo la soluzione per una istanza del  problema "Number Partitioning", 
+# già visto come "Sottoinsiemi a Somma Identica",  da:
 # "Quantum Bridge Analytics I: A Tutorial on Formulating and Using QUBO Models",
 #
 # Sviluppiamo due istanze, una caratterizata da un insieme di due risposte,
@@ -25,7 +25,7 @@ v5 = 6
 #
 ham = ((v1+v2+v3+v4+v5) - 2*(x1*v1+x2*v2+x3*v3+x4*v4+x5*v5))**2
 
-# Rappresentazione interna (D-Wave) dell'hamiltoniano.
+# Rappresentazione interna (D-Wave) dell'Hamiltoniano.
 # Servirà per poter decodificare la struttura restituita dal campionatore
 # che viene applicato ad un BQM (Binary Quadratic Model).
 #
