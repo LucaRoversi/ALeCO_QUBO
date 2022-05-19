@@ -79,4 +79,4 @@ from neal import SimulatedAnnealingSampler
 SA = SimulatedAnnealingSampler()
 print("--------------------------")
 print("Campionamento spazio stati con Simulated Annealing:\n" \
-        , SA.sample(bqm, num_reads=1, num_sweeps=100))
+        , SA.sample(bqm, num_reads=3, num_sweeps=10))
