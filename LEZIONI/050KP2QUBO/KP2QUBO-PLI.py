@@ -52,7 +52,7 @@ ham_internal = ham.compile()
 
 # BQM parametrico corrispondente
 #
-bqm = ham_internal.to_bqm(feed_dict={'L': 30})
+bqm = ham_internal.to_bqm(feed_dict={'L': 20})
 # print(" -- bqm (componenti lineari):\n", bqm.linear)           # lineari
 # print(" -- bqm (componenti quadratiche):\n", bqm.quadratic)    # quadratiche
 # print(" -- bqm (offset):\n", bqm.offset)                       # scostamento costante da 0?
