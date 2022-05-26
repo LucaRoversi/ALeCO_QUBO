@@ -20,7 +20,7 @@
 #                       3, 2, 0, 1
 #
 # perché a parità di profitto per unità di misura privilegiamo l'elemento che occupa 
-# maggiore volume. Grredy-split inserisce i due elementi 3, 2, con un'occupazione pari a 15
+# maggiore volume. Greedy-split inserisce i due elementi 3, 2, con un'occupazione pari a 15
 # ed un profitto pari a 30.
 # Serve quindi una sola variabile slack s.
 ################################################################################################
@@ -52,7 +52,7 @@ ham_internal = ham.compile()
 
 # BQM parametrico corrispondente
 #
-bqm = ham_internal.to_bqm(feed_dict={'L': 20})
+bqm = ham_internal.to_bqm(feed_dict={'L': 30})
 # print(" -- bqm (componenti lineari):\n", bqm.linear)           # lineari
 # print(" -- bqm (componenti quadratiche):\n", bqm.quadratic)    # quadratiche
 # print(" -- bqm (offset):\n", bqm.offset)                       # scostamento costante da 0?
