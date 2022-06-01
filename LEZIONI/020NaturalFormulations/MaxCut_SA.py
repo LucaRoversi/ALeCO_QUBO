@@ -8,11 +8,11 @@
 #
 from pyqubo import Binary, Constraint, Placeholder
 
-a, b, d = Binary('a'), Binary('b'), Binary('d')
+a, b, c = Binary('a'), Binary('b'), Binary('c')
 
 # Hamiltoniano completo nella rappresentazione funzionale ovvia.
 #
-ham  = -(a +2*b +d -2*a*b -2*b*d)
+ham  = -(a +2*b +c -2*a*b -2*b*c)
 
 # Rappresentazione interna (D-Wave) dell'hamiltoniano.
 # Servirà per poter decodificare la struttura restituita dal campionatore
