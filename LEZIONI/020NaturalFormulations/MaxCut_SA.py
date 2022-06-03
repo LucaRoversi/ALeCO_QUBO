@@ -44,7 +44,7 @@ SA = SimulatedAnnealingSampler()
 print("-----------------------------")
 # Campionatura sul BQM.
 #
-sampleset = SA.sample(bqm, num_reads=2, num_sweeps=3)
+sampleset = SA.sample(bqm, num_reads=2, num_sweeps=10)
 print("Sampleset:\n",sampleset)
 #       ==> [DecodedSample(decoded_subhs=[Constraint(a + b = 1,energy=1.000000)] ...
 print("Lunghezza Sampleset: ", len(sampleset))
