@@ -12,8 +12,6 @@
 ################################################################################################
 
 from pyqubo import Binary, Placeholder, Constraint
-num_variables = 4
-num_slack     = 16
 
 # Definire parametricamente nomi di variabile.
 #
@@ -34,8 +32,8 @@ ham_obiettivo = (10*x0 +10*x1 +12*x2 +18*x3)
 # Hamiltoniano penalità
 #
 ham_penalita  = \
-    Constraint( ((y0 +2*y1 +4*y2 +8*y3 +16*y4) - (2*x0 +4*x1 +6*x2 +9*x3))**2 + (1-(y0+y1+y2+y3+y4))**2, \
-    label='cnstr0')
+    Constraint( ((y0 +2*y1 +4*y2 +8*y3 +16*y4) - (2*x0 +4*x1 +6*x2 +9*x3))**2, \
+    label='penalita')
 
 # Lagrangiano inserito nel modello con il ruolo di parametro
 #
@@ -51,7 +49,7 @@ ham_internal = ham.compile()
 
 # BQM parametrico corrispondente
 #
-bqm = ham_internal.to_bqm(feed_dict={'L': 50})
+bqm = ham_internal.to_bqm(feed_dict={'L': 20}) # maggiore de (miglior profitto + 1)
 # print(" -- bqm (componenti lineari):\n", bqm.linear)           # lineari
 # print(" -- bqm (componenti quadratiche):\n", bqm.quadratic)    # quadratiche
 # print(" -- bqm (offset):\n", bqm.offset)                       # scostamento costante da 0?
