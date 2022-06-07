@@ -45,3 +45,23 @@ print("-----------------------------")
 #
 sampleset = SA.sample(bqm, num_reads=4, num_sweeps=10)
 print("Sampleset:\n",sampleset)
+
+
+# Le risposte sono il seguente grafo e quello che si ottiene
+# per riflessione rispetto all'asse di simmetria verticale:
+#
+#              X    Y
+#              1----2
+#               \  /
+#                \/
+#                /\
+#               /  \
+#              4----3
+#              |   /
+#              |  /
+#              | /
+#              |/
+#              5
+#
+# Il numero di archi a "cavallo del taglio" corrisponde 
+# all'energia calcolata.
