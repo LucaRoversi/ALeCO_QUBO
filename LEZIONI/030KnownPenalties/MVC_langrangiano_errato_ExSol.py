@@ -77,7 +77,12 @@ print("-----------------------------")
 decoded_sampleset = ham_internal.decode_sampleset(sampleset)
 #print("Decoded_samplset:\n", decoded_sampleset)
 #   - singolo campione;
-print(" -- decoded_sampleset[0]:\n", decoded_sampleset[0])
+print(" -- decoded_sampleset: rappresentazione interna.\n", decoded_sampleset[0])
+#   --- struttura penalità di un campione;
+print(" ---- decoded_sampleset[0]: lista penalità. \n", decoded_sampleset[0].constraints())
+print(" ---- decoded_sampleset[0]: singola penalità. \n", decoded_sampleset[0].constraints().get('constr0'))
+print(" ---- decoded_sampleset[0]: penalità soddisfatta? \n", decoded_sampleset[0].constraints().get('constr0')[0])
+print(" ---- decoded_sampleset[0]: valore penalità. \n", decoded_sampleset[0].constraints().get('constr0')[1])
 #   - lista dei campioni;
 print(" -- lista dei sample estratti dal decoded_sampleset:\n", [x.sample for x in decoded_sampleset])
 #   - lista delle energie di ogni campione;

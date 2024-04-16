@@ -66,7 +66,7 @@ print("Visita BF spazio stati:\n", sampleset_ES)
 # La documentazione è oltremodo scarna. 
 # (https://test-projecttemplate-dimod.readthedocs.io/en/latest/reference/sampler_composites/samplers.html)
 # I parametri dovrebbero avere il seguente significato:
-# -- num_reads è il numero di righe stampate;
+# -- num_reads è il numero di volte che l'istanza di Simulated Annelaling è invocata;
 # -- num_sweeps è il numero di iterazioni che l'algorimto esegue per convergere al minimo globale.
 # La prova sperimentale per confermare l'ipotesi si può avere:
 # -- limitando ad 1 il numero di campioni che costituiscono la risposta;

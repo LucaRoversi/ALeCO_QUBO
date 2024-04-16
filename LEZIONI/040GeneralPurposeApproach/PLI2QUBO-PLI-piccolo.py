@@ -85,5 +85,5 @@ print(" SA.parameters:\n", SA.parameters)
 
 # Campionatura sul BQM.
 #
-sampleset = SA.sample(bqm, num_reads=10, num_sweeps=10)
+sampleset = SA.sample(bqm, num_reads=5, num_sweeps=20)
 print("Sampleset:\n",sampleset)

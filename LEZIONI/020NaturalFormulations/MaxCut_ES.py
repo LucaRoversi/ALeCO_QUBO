@@ -33,22 +33,17 @@ print(" -- bqm (componenti quadratiche):\n", bqm.quadratic)    # quadratiche
 print(" -- bqm (offset):\n", bqm.offset)                       # scostamento costante da 0?
 
 ####################################################################
-# Campionamento con Simulated Annealing
+# Campionamento esaustivo
 ####################################################################
-from neal import SimulatedAnnealingSampler
+from dimod import ExactSolver
 
+print("-----------------------------")
 # Istanza del campionatore scelto
 #
-SA = SimulatedAnnealingSampler()
+ES = ExactSolver()
 
 print("-----------------------------")
 # Campionatura sul BQM.
 #
-sampleset = SA.sample(bqm, num_reads=2, num_sweeps=10)
+sampleset = ES.sample(bqm)
 print("Sampleset:\n",sampleset)
-#       ==> [DecodedSample(decoded_subhs=[Constraint(a + b = 1,energy=1.000000)] ...
-print("Lunghezza Sampleset: ", len(sampleset))
-
-print("-----------------------------")
-# Rappresentazione ad array della campionatura con attributi accessibili:
-decoded_sampleset = ham_internal.decode_sampleset(sampleset)
