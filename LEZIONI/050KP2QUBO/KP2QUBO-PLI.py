@@ -91,8 +91,8 @@ print("sampleset.first.energy: ", sampleset.first.energy) # per avere l'energia 
 #
 # Con L = 2:
 #  s x0 x1 x2 x3 energy 
-#  1  1  1  0  1  -38.0 ===> profitto 10+10+18 con peso 1+2+4+9 = 16 <-- e la risposta
-#  0  1  0  1  1  -38.0 ===> profitto 10+12+18 con peso 0+2+6+9 = 17 <-- proposta come risposta errata
+#  1  1  1  0  1  -38.0 ===> profitto 10+10+18 con peso 1+2+4+9 = 16 <-- è la risposta
+#  0  1  0  1  1  -38.0 ===> profitto 10+12+18 con peso 0+2+6+9 = 17 <-- proposta come risposta, ma è errata
 #
 # Con L = 3:
 #  s x0 x1 x2 x3 energy 
@@ -124,5 +124,5 @@ SA = SimulatedAnnealingSampler()
 
 # Campionatura sul BQM.
 #
-sampleset = SA.sample(bqm, num_reads=3, num_sweeps=10)
+sampleset = SA.sample(bqm, num_reads=10, num_sweeps=2)
 print("Sampleset:\n",sampleset)

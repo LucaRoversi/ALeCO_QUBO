@@ -11,6 +11,7 @@
 # (https://pyqubo.readthedocs.io/en/latest/reference/express.html)
 #
 from pyqubo import Binary 
+from plot_energies_multiples import plot_energies_multiples
 num_vars = 4
 
 # Definire parametricamente nomi di variabile.
@@ -55,8 +56,9 @@ print("Rappresentazione BQM:\n", bqm)
 #
 from dimod import ExactSolver
 ES = ExactSolver()
+sampleset_ES = ES.sample(bqm)
 print("--------------------------")
-print("Visita BF spazio stati:\n", ES.sample(bqm))
+print("Visita BF spazio stati:\n", sampleset_ES)
 
 
 # "Campionamento" spazio degli stati tramite Simulated Annealing.
@@ -77,6 +79,12 @@ print("Visita BF spazio stati:\n", ES.sample(bqm))
 #
 from neal import SimulatedAnnealingSampler
 SA = SimulatedAnnealingSampler()
+sampleset_SA = SA.sample(bqm, num_reads=3, num_sweeps=10)
 print("--------------------------")
-print("Campionamento spazio stati con Simulated Annealing:\n" \
-        , SA.sample(bqm, num_reads=3, num_sweeps=10))
+print("Campionamento spazio stati con Simulated Annealing:\n", sampleset_SA)
+
+
+# Plot grafico energie
+two_samples = [sampleset_ES, sampleset_SA]
+two_titles = ["Exact solver", "Simulated annealing"]
+plot_energies_multiples(two_samples, two_titles)
