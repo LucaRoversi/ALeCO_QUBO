@@ -10,11 +10,12 @@
 # variabili come 'binary quadratic model'.
 # (https://pyqubo.readthedocs.io/en/latest/reference/express.html)
 #
-from pyqubo import Binary 
-from plot_energies_multiples import plot_energies_multiples
+
+
+from pyqubo import Binary # modulo pyqubo con classe Binary
 num_vars = 4
 
-# Definire parametricamente nomi di variabile.
+# Definire parametricamente nomi di variabile con le f-string di Python. 
 #
 variables = [Binary(f'x{j}') for j in range(num_vars)]
 
@@ -63,11 +64,11 @@ print("Visita BF spazio stati:\n", sampleset_ES)
 
 # "Campionamento" spazio degli stati tramite Simulated Annealing.
 #
-# La documentazione è oltremodo scarna. 
+# La documentazione (era) oltremodo scarna. Dovrebbe essere migliorata... 
 # (https://test-projecttemplate-dimod.readthedocs.io/en/latest/reference/sampler_composites/samplers.html)
 # I parametri dovrebbero avere il seguente significato:
-# -- num_reads è il numero di volte che l'istanza di Simulated Annelaling è invocata;
-# -- num_sweeps è il numero di iterazioni che l'algorimto esegue per convergere al minimo globale.
+# -- num_reads è il numero di volte che l'istanza di Simulated Annealing è invocata;
+# -- num_sweeps è il numero di iterazioni che l'algoritmo esegue per convergere al minimo globale.
 # La prova sperimentale per confermare l'ipotesi si può avere:
 # -- limitando ad 1 il numero di campioni che costituiscono la risposta;
 # -- interpretando l'algoritmo con numeri crescenti di num_sweeps.
@@ -82,9 +83,3 @@ SA = SimulatedAnnealingSampler()
 sampleset_SA = SA.sample(bqm, num_reads=3, num_sweeps=10)
 print("--------------------------")
 print("Campionamento spazio stati con Simulated Annealing:\n", sampleset_SA)
-
-
-# Plot grafico energie
-two_samples = [sampleset_ES, sampleset_SA]
-two_titles = ["Exact solver", "Simulated annealing"]
-plot_energies_multiples(two_samples, two_titles)

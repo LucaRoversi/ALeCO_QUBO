@@ -27,7 +27,7 @@ ham = -5*x0 -3*x1 -8*x2 -6*x3 \
 #
 ham_internal = ham.compile()
 print("--------------------------")
-print("Hamiltoninao in forma interna:\n", ham_internal)
+print("Hamiltoniano in forma interna:\n", ham_internal)
 
 # Da Hamiltoniano in forma interna a 'binary quadratic model'
 #
