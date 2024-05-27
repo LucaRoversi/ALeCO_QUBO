@@ -11,6 +11,7 @@
 # (https://pyqubo.readthedocs.io/en/latest/reference/express.html)
 #
 
+import dimod
 
 from pyqubo import Binary # modulo pyqubo con classe Binary
 num_vars = 4
@@ -25,14 +26,14 @@ for i in variables:
     print("Variabile {}".format(i))
 
 # Matrice come dictionary sulle variabili definite.
-#
-Q = {('x0','x0'): -5
-    ,('x1','x1'): -3
-    ,('x2','x2'): -8
-    ,('x3','x3'): -6
-    ,('x0','x1'):  4 
-    ,('x0','x2'):  8
-    ,('x1','x2'):  4
+
+Q = {('x0','x0'): -5    #     0
+    ,('x1','x1'): -3    #    / \
+    ,('x2','x2'): -8    #   /   \
+    ,('x3','x3'): -6    #  1-----2
+    ,('x0','x1'):  4    #       / 
+    ,('x0','x2'):  8    #      /
+    ,('x1','x2'):  4    #     3
     ,('x2','x3'): 10 }
 print("--------------------------")
 print("Matrice QUBO:\n", Q)
@@ -80,6 +81,8 @@ print("Visita BF spazio stati:\n", sampleset_ES)
 #
 from neal import SimulatedAnnealingSampler
 SA = SimulatedAnnealingSampler()
-sampleset_SA = SA.sample(bqm, num_reads=3, num_sweeps=10)
+
+n_reads = 10
+sampleset_SA = SA.sample(bqm, num_reads=n_reads, num_sweeps=10)
 print("--------------------------")
 print("Campionamento spazio stati con Simulated Annealing:\n", sampleset_SA)

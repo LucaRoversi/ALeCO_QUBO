@@ -6,6 +6,8 @@
 #
 # L'esempio originale usa una matrice simmetrica.
 ###################################################################################
+import dimod
+
 from pyqubo import Binary # Un modello QUBO per ogni variabile binaria [0,1]
 
 # Elenco dei 'Binary Quadratic Model' (BQM) corrispondenti.
@@ -19,6 +21,14 @@ x0, x1, x2, x3 = Binary('x0'), Binary('x1'), Binary('x2'), Binary('x3')
 ham = -5*x0 -3*x1 -8*x2 -6*x3 \
       +4*x0*x1 +8*x0*x2 \
       +4*x1*x2 +10*x2*x3
+# Il grafo corrispondente è sempre:
+#     0 
+#    / \
+#   /   \
+#  1-----2  
+#       /
+#      /
+#     3
 
 # Compilazione della funzione obiettivo in un formato interno.
 # 
