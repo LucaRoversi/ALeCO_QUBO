@@ -50,7 +50,7 @@ ham = -ham_obiettivo + L*ham_penalita
 ham_internal = ham.compile()
 
 # BQM parametrico corrispondente
-bqm = ham_internal.to_bqm(feed_dict={'L': 32})
+bqm = ham_internal.to_bqm(feed_dict={'L': 40})
 # print(" -- bqm (componenti lineari):\n", bqm.linear)           # lineari
 # print(" -- bqm (componenti quadratiche):\n", bqm.quadratic)    # quadratiche
 # print(" -- bqm (offset):\n", bqm.offset)                       # scostamento costante da 0?
@@ -90,13 +90,8 @@ print("sampleset.first.energy: ", sampleset.first.energy) # per avere l'energia 
 # 1   0  0  1  1  0  1  -38.0 ===> profitto 10+10+18 = 38 con peso 1+2+4+9 = 16 <-- risposta
 # 0   0  0  1  0  1  1  -37.0 ===> profitto 10+12+18 = 40 con peso 0+2+6+9 = 17 <-- non soluzione
 #
-# Ponendo il lagrangiano almeno a 3, otteniamo la risposta.
-#
-# Siccome:
-# - un'euristica derivata dall'esperienza  suggerisce di fissare un valore del lagrangiano 
-# in un intervallo che varia tra il 70% ed il 150% del valore del polinomio da minimizzare,
-# - la stima del profitto ottimale fornita dall'algoritmo Greedy-split è 32,
-# proviamo a fissare L = 32.
+# Sembra che ponendo il lagrangiano almeno a 3, otteniamo dia già sufficiente a ottenere la risposta.
+# Una valutazione più "sofisticata" su come determinare il valore del Lagrangiano è sulle dispense. 
 ###################################################################
 
 ####################################################################
