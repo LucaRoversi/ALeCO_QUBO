@@ -51,22 +51,9 @@ bqm = BinaryQuadraticModel.from_qubo(Q)
 print("--------------------------")
 print("Rappresentazione BQM:\n", bqm)
 
+###################################################################
 # "Campionamento" spazio degli stati tramite Simulated Annealing.
-#
-# La documentazione (era) oltremodo scarna. Dovrebbe essere migliorata... 
-# (https://test-projecttemplate-dimod.readthedocs.io/en/latest/reference/sampler_composites/samplers.html)
-# I parametri dovrebbero avere il seguente significato:
-# -- num_reads è il numero di volte che l'istanza di Simulated Annealing è invocata;
-# -- num_sweeps è il numero di iterazioni che l'algoritmo esegue per convergere al minimo globale.
-# La prova sperimentale per confermare l'ipotesi si può avere:
-# -- limitando ad 1 il numero di campioni che costituiscono la risposta;
-# -- interpretando l'algoritmo con numeri crescenti di num_sweeps.
-# 'Risultati' non da prove a mano, non automatizzate:
-# -- num_sweeps= 1 --> ogni chiamata restituisce una risposta diversa 
-# -- num_sweeps= 2 --> ogni chiamata restituisce una risposta diversa
-# -- num_sweeps= 3 --> la risposta (energy=-11) compare frequentemente, ma inframezzata da non risposte
-# -- num_sweeps=10 --> la risposta (energy=-11) compare nella quasi totalità dei casi.
-#
+###################################################################
 from neal import SimulatedAnnealingSampler
 SA = SimulatedAnnealingSampler()
 
@@ -78,6 +65,7 @@ print("Campionamento spazio stati con Simulated Annealing:\n", sampleset_SA)
 
 ##############################################
 # Campionatore ibrido(?) con DWaveSampler
+##############################################
 from dwave.system.samplers import DWaveSampler
 from dwave.system.composites import EmbeddingComposite
 import dwave.inspector
