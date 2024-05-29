@@ -9,10 +9,7 @@
 # l'espansione binaria di variabili slack necessarie alla trasformazione.
 #
 # Tecnicamente, sperimentiamo la definizione di un BQM che dipende da un parametro
-# lagrangiano, da instanziare opportunamente per distanziare soluzioni da non soluzioni.
-#
-# Utile riferimento nella documentazione:
-# https://pyqubo.readthedocs.io/en/latest/getting_started.html#solve-qubo-by-dimod-sampler
+# lagrangiano, da istanziare opportunamente per distanziare soluzioni da non soluzioni.
 ################################################################################################
 
 from pyqubo import Binary, Placeholder, Constraint
@@ -45,37 +42,21 @@ print(" -- bqm (componenti quadratiche):\n", bqm.quadratic)    # quadratiche
 print(" -- bqm (offset):\n", bqm.offset)                       # scostamento costante da 0?
 
 ####################################################################
-# Campionamento con ExactSolver (visita BF)
+# Campionamento con DWaveSampler
 ####################################################################
-from dimod import ExactSolver
+from dwave.system.samplers import DWaveSampler
+from dwave.system.composites import EmbeddingComposite
+import dwave.inspector
 
-print("-----------------------------")
-ES = ExactSolver()
-# Parametri disponibili in ES
-#
-print(" ES.parameters:\n", ES.parameters)
+DWHS = EmbeddingComposite(DWaveSampler())
+n_reads    = 10 # Numero di campioni prodotti
+# Determina il valore massimo del bias associato agli archi del modello
+max_bias = max(abs(bias) for bias in bqm.quadratic.values())
+c_strength = max_bias + 1  # Se l'energia associata ad un arco che costituisce una catena
+                           # non ci dovrebbero essere catene rotte, in cui il majority
+                           # voting non riesce a decidere quale spin assegnare a tutti i
+                           # qbit nella catena
+ann_time   = 30 # Potrebbe corrispondere al parametro num_sweep di SimulatedAnnealingSampler(?) 
 
-print("-----------------------------")
-# Campionatura sul BQM.
-sampleset = ES.sample(bqm)
-print("Sampleset:\n",sampleset)
-
-print("-----------------------------")
-# Energia minima dei sample che soddisfano il constraint.
-# best_energy = min([s.energy for s in decoded_sampleset if (s.constraints().get('a + b = 1')[0]) ])
-# print("Energia minima dei sample che soddisfano il constraint: ", best_energy)
-# Un'alternativa è usare 
-print("sampleset.first.energy: ", sampleset.first.energy) # per avere l'energia del sample con energia minima.
-
-####################################################################
-# Campionamento con Simulated Annealing
-####################################################################
-print("-----------------------------")
-from  neal import SimulatedAnnealingSampler
-
-SA = SimulatedAnnealingSampler()
-print(" SA.parameters:\n", SA.parameters)
-
-# Campionatura sul BQM.
-sampleset = SA.sample(bqm, num_reads=5, num_sweeps=30)
-print("Sampleset:\n",sampleset)
+sampleset_DWHS = DWHS.sample(bqm, chain_strength=c_strength, num_reads=n_reads, annealing_time=ann_time)
+dwave.inspector.show(sampleset_DWHS)
