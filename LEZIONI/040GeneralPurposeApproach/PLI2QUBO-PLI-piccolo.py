@@ -21,30 +21,24 @@ x1, x2, x3 = Binary('x1'), Binary('x2'), Binary('x3')
 y1, y2     = Binary('y1'), Binary('y2')
 z1, z2     = Binary('z1'), Binary('z2')
 
-# Hamiltoniano primcipale
-#
+# Hamiltoniano principale
 ham_obiettivo = (10*x1 + 7*x2 + 9*x3)
 
 # Hamiltoniani penalità
-#
 ham_penalita0  = Constraint(( 2*x1 + 3*x2 + 2*x3              - 5)**2, label='cnstr0')
 ham_penalita1  = Constraint(( 3*x1 + 2*x2 + 3*x3 + (y1+ 2*y2) - 5)**2, label='cnstr1')
 ham_penalita2  = Constraint(( 2*x1 + 3*x2 +   x3 - (z1+ 2*z2) - 3)**2, label='cnstr2')
 
 # Lagrangiano inserito nel modello con il ruolo di parametro
-#
 L = Placeholder('L')
 
 # Hamiltoniano da minimizzare
-#
 ham = -ham_obiettivo + L*ham_penalita0 + L*ham_penalita1 + L*ham_penalita2 
 
-# Singola compilazione che produce un Hamiltoniamo parametrico in L
-#
+# Singola compilazione che produce un Hamiltoniano parametrico in L
 ham_internal = ham.compile()
 
 # BQM parametrico corrispondente
-#
 bqm = ham_internal.to_bqm(feed_dict={'L': 2})
 print(" -- bqm (componenti lineari):\n", bqm.linear)           # lineari
 print(" -- bqm (componenti quadratiche):\n", bqm.quadratic)    # quadratiche
@@ -63,16 +57,15 @@ print(" ES.parameters:\n", ES.parameters)
 
 print("-----------------------------")
 # Campionatura sul BQM.
-#
 sampleset = ES.sample(bqm)
 print("Sampleset:\n",sampleset)
 
 print("-----------------------------")
 # Energia minima dei sample che soddisfano il constraint.
-#best_energy = min([s.energy for s in decoded_sampleset if (s.constraints().get('a + b = 1')[0]) ])
-#print("Energia minima dei sample che soddisfano il constraint: ", best_energy)
+# best_energy = min([s.energy for s in decoded_sampleset if (s.constraints().get('a + b = 1')[0]) ])
+# print("Energia minima dei sample che soddisfano il constraint: ", best_energy)
 # Un'alternativa è usare 
-print("sampleset.first.energy: ", sampleset.first.energy) # per avere l'nergia del sample con energia minima.
+print("sampleset.first.energy: ", sampleset.first.energy) # per avere l'energia del sample con energia minima.
 
 ####################################################################
 # Campionamento con Simulated Annealing
@@ -84,6 +77,5 @@ SA = SimulatedAnnealingSampler()
 print(" SA.parameters:\n", SA.parameters)
 
 # Campionatura sul BQM.
-#
 sampleset = SA.sample(bqm, num_reads=5, num_sweeps=20)
 print("Sampleset:\n",sampleset)
