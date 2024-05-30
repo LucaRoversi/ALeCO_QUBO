@@ -9,7 +9,7 @@
 # l'espansione binaria di variabili slack necessarie alla trasformazione.
 #
 # Tecnicamente, sperimentiamo la definizione di un BQM che dipende da un parametro
-# lagrangiano, da instanziare opportunamente per distanziare soluzioni da non soluzioni.
+# lagrangiano, da istanziare opportunamente per distanziare soluzioni da non soluzioni.
 #
 # Utile riferimento nella documentazione:
 # https://pyqubo.readthedocs.io/en/latest/getting_started.html#solve-qubo-by-dimod-sampler
