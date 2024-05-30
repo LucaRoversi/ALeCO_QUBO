@@ -82,7 +82,7 @@ print("Visita BF spazio stati:\n", sampleset_ES)
 from neal import SimulatedAnnealingSampler
 SA = SimulatedAnnealingSampler()
 
-n_reads = 10
-sampleset_SA = SA.sample(bqm, num_reads=n_reads, num_sweeps=10)
+n_reads = 20
+sampleset_SA = SA.sample(bqm, num_reads=n_reads, num_sweeps=2)
 print("--------------------------")
 print("Campionamento spazio stati con Simulated Annealing:\n", sampleset_SA)

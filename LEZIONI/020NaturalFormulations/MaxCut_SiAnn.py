@@ -11,26 +11,22 @@ from pyqubo import Binary, Constraint, Placeholder
 a, b, c = Binary('a'), Binary('b'), Binary('c')
 
 # Hamiltoniano completo nella rappresentazione funzionale ovvia.
-#
 ham  = -(a +2*b +c -2*a*b -2*b*c)
 
 # Rappresentazione interna (D-Wave) dell'hamiltoniano.
 # Servirà per poter decodificare la struttura restituita dal campionatore
 # che viene applicato ad un BQM (Binary Quadratic Model).
-#
 ham_internal = ham.compile()
 
 print("-----------------------------")
 # BQM estratto dalla rappresentazione interna dell'Hamiltoniano ham.
-#
 bqm = ham_internal.to_bqm()
 print("bqm:\n", bqm)
 
 # Alcuni attributi del BQM.
-#
 print(" -- bqm (componenti lineari):\n", bqm.linear)           # lineari
 print(" -- bqm (componenti quadratiche):\n", bqm.quadratic)    # quadratiche
-print(" -- bqm (offset):\n", bqm.offset)                       # scostamento costante da 0?
+print(" -- bqm (-->> OFFSET):\n", bqm.offset)                       # scostamento costante da 0?
 
 ####################################################################
 # Campionamento con Simulated Annealing
@@ -38,12 +34,10 @@ print(" -- bqm (offset):\n", bqm.offset)                       # scostamento cos
 from neal import SimulatedAnnealingSampler
 
 # Istanza del campionatore scelto
-#
 SA = SimulatedAnnealingSampler()
 
 print("-----------------------------")
 # Campionatura sul BQM.
-#
 sampleset = SA.sample(bqm, num_reads=2, num_sweeps=10)
 print("Sampleset:\n",sampleset)
 #       ==> [DecodedSample(decoded_subhs=[Constraint(a + b = 1,energy=1.000000)] ...

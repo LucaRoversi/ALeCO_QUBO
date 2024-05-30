@@ -64,7 +64,7 @@ print("--------------------------")
 print("Campionamento spazio stati con Simulated Annealing:\n", sampleset_SA)
 
 ##############################################
-# Campionatore ibrido(?) con DWaveSampler
+# Campionatore con DWaveSampler
 ##############################################
 from dwave.system.samplers import DWaveSampler
 from dwave.system.composites import EmbeddingComposite

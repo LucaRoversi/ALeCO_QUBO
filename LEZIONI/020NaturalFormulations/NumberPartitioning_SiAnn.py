@@ -36,7 +36,7 @@ print("bqm:\n", bqm)
 # Alcuni attributi del BQM.
 print(" -- bqm (componenti lineari):\n", bqm.linear)           # lineari
 print(" -- bqm (componenti quadratiche):\n", bqm.quadratic)    # quadratiche
-print(" -- bqm (offset):\n", bqm.offset)                       # scostamento costante da 0?
+print(" -- bqm (---->>  OFFSET):\n", bqm.offset)                       # scostamento costante da 0?
 
 ####################################################################
 # Campionamento con Simulated Annealing

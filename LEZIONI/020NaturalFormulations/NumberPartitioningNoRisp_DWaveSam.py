@@ -21,7 +21,7 @@ v4 = 1
 v5 = 1
 
 # Hamiltoniano completo nella rappresentazione funzionale ovvia.
-ham = ((v1+v2+v3+v4+v5) - 3*(x1*v1+x2*v2+x3*v3+x4*v4+x5*v5))**2
+ham = ((v1+v2+v3+v4+v5) - 2*(x1*v1+x2*v2+x3*v3+x4*v4+x5*v5))**2
 
 # Rappresentazione interna (D-Wave) dell'Hamiltoniano.
 # Servirà per poter decodificare la struttura restituita dal campionatore

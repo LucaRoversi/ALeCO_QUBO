@@ -3,7 +3,7 @@
 # già visto come "Sottoinsiemi a Somma Identica",  da:
 # "Quantum Bridge Analytics I: A Tutorial on Formulating and Using QUBO Models",
 #
-# Sviluppiamo due istanze, una caratterizata da un insieme di due risposte,
+# Sviluppiamo due istanze, una caratterizzata da un insieme di due risposte,
 # l'altra dal non avere alcuna risposta. 
 #################################################################################
 print("## \"Number Partitioning Problem\" o \"Sottoinsiemi a Somma Identica\"\n")
@@ -91,7 +91,7 @@ print("bqm:\n", bqm)
 # Alcuni attributi del BQM.
 print(" -- bqm (componenti lineari):\n", bqm.linear)           # lineari
 print(" -- bqm (componenti quadratiche):\n", bqm.quadratic)    # quadratiche
-print(" -- bqm (offset):\n", bqm.offset)                       # scostamento costante da 0?
+print(" -- bqm (--->> OFFSET):\n", bqm.offset)                       # scostamento costante da 0?
 
 ####################################################################
 # Campionamento con ExactSolver (visita BF)

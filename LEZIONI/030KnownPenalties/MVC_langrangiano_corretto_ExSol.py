@@ -17,11 +17,9 @@ from pyqubo import Binary, Constraint, Placeholder
 v1, v2, v3, v4, v5 = Binary('v1'), Binary('v2'), Binary('v3'), Binary('v4'), Binary('v5')
 
 # Hamiltoniano espresso nella forma naturale di un polinomio.
-#
 ham_obiettivo  = v1 + v2 + v3 + v4 + v5
 
 # Elenco dei polinomi penalità con cui estenderemo l'Hamiltoniano.
-#
 ham_penalita   = Constraint(1 - v1 - v2 + v1*v2, label="constr0")
 ham_penalita  += Constraint(1 - v2 - v3 + v2*v3, label="constr1") 
 ham_penalita  += Constraint(1 - v3 - v4 + v3*v4, label="constr2") 
@@ -30,18 +28,15 @@ ham_penalita  += Constraint(1 - v3 - v5 + v3*v5, label="constr4")
 ham_penalita  += Constraint(1 - v4 - v5 + v4*v5, label="constr5") 
 
 # Una possibile istanza corretta del Lagrangiano.
-#
 L = 2
 
 # Hamiltoniano completo nella rappresentazione funzionale ovvia,
 # con lagrangiano e penalità.
-#
 ham = ham_obiettivo + L * ham_penalita 
 
-# Rappresentazione interna (D-Wave) dell'hamoltoniano.
-# Sercirà per poter decodificare la struttura restituita dal campionatore
+# Rappresentazione interna (D-Wave) dell'Hamiltoniano.
+# Servirà per poter decodificare la struttura restituita dal campionatore
 # che viene applicato ad un BQM (Binary Quadratic Model).
-#
 ham_internal = ham.compile()
 
 print("-----------------------------")
@@ -49,15 +44,13 @@ print("-----------------------------")
 # È nuovamente una rappresentazione interna che gioca il ruolo
 # della matrice quadrata triangolare superiore, o simmetrica,
 # che caratterizza una istanza QUBO.
-#
 bqm = ham_internal.to_bqm()
 print("bqm: ", bqm)
 
 # Alcuni attributi del BQM.
-# 
 print(" -- bqm (componenti lineari): ", bqm.linear)           # lineari
 print(" -- bqm (componenti quadratiche): ", bqm.quadratic)    # quadratiche
-print(" -- bqm (offset): ", bqm.offset)                       # scostamento costante da 0?
+print(" -- bqm (--->> OFFSET): ", bqm.offset)                 # scostamento costante da 0?
 
 ####################################################################
 # Campionamento con ExactSolver (visita BF)
@@ -65,12 +58,10 @@ print(" -- bqm (offset): ", bqm.offset)                       # scostamento cost
 from dimod import ExactSolver
 
 # Istanza del campionatore scelto
-#
 ES = ExactSolver()
 
 print("-----------------------------")
 # Campionatura sul BQM.
-#
 sampleset = ES.sample(bqm)
 print("Sampleset:\n",sampleset)
 #       ==> [DecodedSample(decoded_subhs=[Constraint(a + b = 1,energy=1.000000)] ...
@@ -85,7 +76,7 @@ print(" -- decoded_sampleset[0]:\n", decoded_sampleset[0])
 #   - lista dei campioni;
 print(" -- lista dei sample estratti dal decoded_sampleset:\n", [x.sample for x in decoded_sampleset])
 #   - lista delle energie di ogni campione;
-#print(" -- lista delle sole enerige dei sample estratti dal decoded_sampleset: ",  [x.energy for x in decoded_sampleset])
+#print(" -- lista delle sole energie dei sample estratti dal decoded_sampleset: ",  [x.energy for x in decoded_sampleset])
 #   - lista dei vincoli di ogni campione;
 #print(" -- lista dei soli constraint dei sample estratti dal decoded_sampleset: ", [x.constraints() for x in decoded_sampleset])
 #   - lista dei campioni che non soddisfano il vincolo:
