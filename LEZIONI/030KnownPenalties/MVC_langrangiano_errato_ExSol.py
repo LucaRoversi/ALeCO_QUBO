@@ -56,26 +56,26 @@ from dimod import ExactSolver
 # Istanza del campionatore scelto
 ES = ExactSolver()
 
-print("-----------------------------")
+print("\n-----------------------------")
 # Campionatura sul BQM.
 sampleset = ES.sample(bqm)
 print("Sampleset:\n",sampleset)
 #       ==> [DecodedSample(decoded_subhs=[Constraint(a + b = 1,energy=1.000000)] ...
 print("Lunghezza Sampleset: ", len(sampleset))
 
-print("-----------------------------")
+print("\n-----------------------------")
 # Rappresentazione ad array della campionatura con attributi accessibili:
 decoded_sampleset = ham_internal.decode_sampleset(sampleset)
-#print("Decoded_samplset:\n", decoded_sampleset)
+print("Decoded_samplset:\n", decoded_sampleset)
 #   - singolo campione;
-print(" -- decoded_sampleset: rappresentazione interna.\n", decoded_sampleset[0])
+print("\n -- decoded_sampleset[0]: singolo campione.\n", decoded_sampleset[0])
 #   --- struttura penalità di un campione;
-print(" ---- decoded_sampleset[0]: lista penalità. \n", decoded_sampleset[0].constraints())
-print(" ---- decoded_sampleset[0]: singola penalità. \n", decoded_sampleset[0].constraints().get('constr0'))
-print(" ---- decoded_sampleset[0]: penalità soddisfatta? \n", decoded_sampleset[0].constraints().get('constr0')[0])
-print(" ---- decoded_sampleset[0]: valore penalità. \n", decoded_sampleset[0].constraints().get('constr0')[1])
+print("\n ---- decoded_sampleset[0]: lista penalità di un singolo campione. \n", decoded_sampleset[0].constraints())
+print("\n ---- decoded_sampleset[0]: singola penalità di un singolo campione. \n", decoded_sampleset[0].constraints().get('constr0'))
+print("\n ---- decoded_sampleset[0]: singola penalità di un singolo campione soddisfatta? \n", decoded_sampleset[0].constraints().get('constr0')[0])
+print("\n ---- decoded_sampleset[0]: singola penalità di un singolo campione energia. \n", decoded_sampleset[0].constraints().get('constr0')[1])
 #   - lista dei campioni;
-print(" -- lista dei sample estratti dal decoded_sampleset:\n", [x.sample for x in decoded_sampleset])
+#print(" -- lista dei sample estratti dal decoded_sampleset:\n", [x.sample for x in decoded_sampleset])
 #   - lista delle energie di ogni campione;
 #print(" -- lista delle sole energie dei sample estratti dal decoded_sampleset: ",  [x.energy for x in decoded_sampleset])
 #   - lista dei vincoli di ogni campione;
@@ -89,9 +89,9 @@ non_solutions = [s.sample for s in decoded_sampleset \
        not(s.constraints().get('constr4')[0]) or \
        not(s.constraints().get('constr5')[0])]
 #print(" -- lista dei sample che non soddisfano il constraint:", non_solutions)
-print(" -- lunghezza della lista dei sample che non soddisfano almeno un vincolo:\n", len(non_solutions))
+print("\n -- lunghezza della lista dei sample che non soddisfano almeno un vincolo:\n", len(non_solutions))
 
-print("-----------------------------")
+print("\n-----------------------------")
 # Energia minima dei sample che soddisfano i vincoli.
 best_energy = min([s.energy for s in decoded_sampleset \
     if s.constraints().get('constr0')[0] and \
@@ -102,7 +102,7 @@ best_energy = min([s.energy for s in decoded_sampleset \
        s.constraints().get('constr5')[0]])
 print("Energia minima dei sample che soddisfano tutti i vincoli:\n", best_energy)
 
-print("-----------------------------")
+print("\n-----------------------------")
 # Lista con tutte risposte, cioè soluzioni con energia minima che soddisfano i vincoli.
 answers = [s.sample for s in decoded_sampleset \
     if (s.energy == best_energy) and \
@@ -114,7 +114,7 @@ answers = [s.sample for s in decoded_sampleset \
         s.constraints().get('constr5')[0]]
 print("Tutte e sole le risposte con energia minima {} che soddisfano i vincoli: {}.".format(best_energy,answers))
 
-print("-----------------------------")
+print("\n-----------------------------")
 # Lista con tutte le non soluzioni (sample che non soddisfano almeno un vinvolo) 
 # ma che hanno energia minima.
 answers = [s.sample for s in decoded_sampleset \
