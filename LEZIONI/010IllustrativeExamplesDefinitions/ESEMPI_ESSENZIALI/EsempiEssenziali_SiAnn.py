@@ -18,7 +18,7 @@
 #################################
 # Hamiltoniano (interno), BQM
 #################################
-# Supponiamo di avere il seguente modell:
+# Supponiamo di avere il seguente modello:
 # - funzione obiettivo: 2*a + b
 # - vincolo: a + b = 1
 # L'Hamiltoniano che corrisponde al vincolo, e che chiamiamo Hamiltoniano penalità è:
@@ -42,13 +42,13 @@ ham_obiettivo = (2*a + b)
 ham_penalita  = Constraint((a + b - 1)**2, label='a + b = 1') 
 
 # Lagrangiano definito come variabile con lo stesso tipo delle 
-# variabili che compaiono nei due hamiltoinani appena definiti.
+# variabili che compaiono nei due Hamiltoniani appena definiti.
 L = 1
 
 # hamiltoniano completo nella rappresentazione "ovvia"
 ham = ham_obiettivo + L * ham_penalita 
 
-# Rappresentazione interna dell'hamoltoniano.
+# Rappresentazione interna dell'Hamiltoniano.
 # È fondamentale per poter decodificare la struttura restituita 
 # dai campionatori applicabili ad un BQM (Binary Quadratic Model).
 ham_internal = ham.compile()
@@ -92,7 +92,7 @@ print("Sampleset:\n",sampleset)
 print("-----------------------------")
 # Rappresentazione ad array della campionatura con attributi accessibili:
 decoded_sampleset = ham_internal.decode_sampleset(sampleset)
-print("Decoded_samplset: ", decoded_sampleset)
+print("Decoded_sampleset: ", decoded_sampleset)
 #   - singolo campione;
 print(" -- decoded_sampleset[0]: ", decoded_sampleset[0])
 #   - lista dei campioni;

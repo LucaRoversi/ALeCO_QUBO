@@ -7,7 +7,7 @@
 ##################################################################################
 # Modello essenziale
 # --------------------------------------------------------------------------------
-# - rappresentazione di un hamiltoniano come polinomio multivariato quadratico
+# - rappresentazione di un Hamiltoniano come polinomio multivariato quadratico
 # - sua rappresentazione interna con cui ricavare informazioni dal campionamento
 # dello spazio degli stati
 # - sua rappresentazione come BQM, da sottoporre ad un campionatore
@@ -48,7 +48,7 @@ L = 1
 # Hamiltoniano completo nella rappresentazione funzionale ovvia.
 ham = ham_obiettivo + L * ham_penalita 
 
-# Rappresentazione interna (D-Wave) dell'hamoltoniano.
+# Rappresentazione interna (D-Wave) dell'Hamiltoniano.
 # Servirà per poter decodificare la struttura restituita dal campionatore
 # che viene applicato ad un BQM (Binary Quadratic Model).
 ham_internal = ham.compile()
@@ -89,7 +89,7 @@ print("Sampleset:\n",sampleset)
 print("-----------------------------")
 # Rappresentazione ad array della campionatura con attributi accessibili:
 decoded_sampleset = ham_internal.decode_sampleset(sampleset)
-print("Decoded_samplset: ", decoded_sampleset)
+print("Decoded_sampleset: ", decoded_sampleset)
 #   - singolo campione;
 print(" -- decoded_sampleset[0]: ", decoded_sampleset[0])
 #   - lista dei campioni;
@@ -108,7 +108,7 @@ print(" -- lista dei sample che non soddisfano il constraint:", \
     [s.sample for s in decoded_sampleset if not(s.constraints().get('a + b = 1')[0])])
 # Secondo:
 # https://docs.ocean.dwavesys.com/en/latest/docs_dimod/reference/generated/dimod.SampleSet.filter.html
-# se il sampleset offre l'attributo 'is_feasible', che indica se ilsample soddisfa i constraint,
+# se il sampleset offre l'attributo 'is_feasible', che indica se il sample soddisfa i constraint,
 # si può usare:
 #feasible_sampleset = sampleset.filter(lambda d: d.is_feasible)
 
@@ -118,7 +118,7 @@ print("-----------------------------")
 best_energy = min([s.energy for s in decoded_sampleset if (s.constraints().get('a + b = 1')[0]) ])
 print("Energia minima dei sample che soddisfano il constraint: ", best_energy)
 # Un'alternativa è usare 
-# print(sampleset.first.energy) per avere l'nergia del sample con energia minima.
+# print(sampleset.first.energy) per avere l'energia del sample con energia minima.
 
 print("-----------------------------")
 # Lista con tutte risposte, cioè soluzioni con energia minima che soddisfano i vincoli
@@ -128,7 +128,7 @@ print("Tutte e sole le risposte con energia minima {} sono {}.".format(best_ener
 #################################################### 
 # "Miscellanea"
 # RIFERIMENTO: https://www.youtube.com/watch?v=lz4d6XYBJok
-# 1) Esatrarre varie informazioni da un sample con energia minima
+# 1) Estrarre varie informazioni da un sample con energia minima
 #print("================", sampleset.first)
 #print("================", sampleset.first.sample)
 #print("================", sampleset.first.energy)
