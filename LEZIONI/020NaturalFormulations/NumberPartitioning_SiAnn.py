@@ -3,7 +3,7 @@
 # già visto come "Sottoinsiemi a Somma Identica",  da:
 # "Quantum Bridge Analytics I: A Tutorial on Formulating and Using QUBO Models",
 #
-# Sviluppiamo due istanze, una caratterizata da un insieme di due risposte,
+# Sviluppiamo due istanze, una caratterizzata da un insieme di due risposte,
 # l'altra dal non avere alcuna risposta. 
 #################################################################################
 print("## \"Number Partitioning Problem\" o \"Sottoinsiemi a Somma Identica\"\n")

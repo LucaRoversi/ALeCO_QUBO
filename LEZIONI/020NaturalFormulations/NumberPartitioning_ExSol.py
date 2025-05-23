@@ -57,7 +57,7 @@ print("Sampleset:\n",sampleset)
 print("-----------------------------")
 # Rappresentazione ad array della campionatura con attributi accessibili:
 decoded_sampleset = ham_internal.decode_sampleset(sampleset)
-print("Decoded_samplset: ", decoded_sampleset)
+print("Decoded_sampleset: ", decoded_sampleset)
 #   - singolo campione;
 print(" -- lista dei sample estratti dal decoded_sampleset: ", \
     [x.sample for x in decoded_sampleset])
@@ -91,7 +91,7 @@ print("bqm:\n", bqm)
 # Alcuni attributi del BQM.
 print(" -- bqm (componenti lineari):\n", bqm.linear)           # lineari
 print(" -- bqm (componenti quadratiche):\n", bqm.quadratic)    # quadratiche
-print(" -- bqm (--->> OFFSET):\n", bqm.offset)                       # scostamento costante da 0?
+print(" -- bqm (--->> OFFSET):\n", bqm.offset)                 # scostamento costante da 0?
 
 ####################################################################
 # Campionamento con ExactSolver (visita BF)
@@ -112,7 +112,7 @@ print("Sampleset:\n",sampleset)
 print("-----------------------------")
 # Rappresentazione ad array della campionatura con attributi accessibili:
 decoded_sampleset = ham_internal.decode_sampleset(sampleset)
-print("Decoded_samplset:\n", decoded_sampleset)
+print("Decoded_sampleset:\n", decoded_sampleset)
 #   - singolo campione;
 print(" -- lista dei sample estratti dal decoded_sampleset:\n", \
     [x.sample for x in decoded_sampleset])

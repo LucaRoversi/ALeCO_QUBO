@@ -2,9 +2,11 @@
     "cSpell.words": [
         "all'Hamiltoniano",
         "dell'Hamiltoniano",
+        "dimod",
         "Hamiltoniano",
         "Lagrangiano",
         "multivariato",
+        "pyqubo",
         "QUBO",
         "sampleset",
         "subhs"
