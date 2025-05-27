@@ -60,13 +60,6 @@ print("-----------------------------")
 sampleset = ES.sample(bqm)
 print("Sampleset:\n",sampleset)
 
-print("-----------------------------")
-# Energia minima dei sample che soddisfano il constraint.
-# best_energy = min([s.energy for s in decoded_sampleset if (s.constraints().get('a + b = 1')[0]) ])
-# print("Energia minima dei sample che soddisfano il constraint: ", best_energy)
-# Un'alternativa è usare 
-print("sampleset.first.energy: ", sampleset.first.energy) # per avere l'energia del sample con energia minima.
-
 ####################################################################
 # Campionamento con Simulated Annealing
 ####################################################################
