@@ -36,7 +36,7 @@
 ################################################################################
 
 from dimod import ExactSolver
-from pyqubo import Binary
+from pyqubo import Base, Binary
 
 
 print('## "Number Partitioning" / "Subsets with Identical Sum"')
@@ -65,7 +65,7 @@ variable_names = ('x1', 'x2', 'x3', 'x4', 'x5')
 ################################################################################
 # Helper functions.
 ################################################################################
-def build_hamiltonian(variables, values):
+def build_hamiltonian(variables, values) -> Base:
     """Return the pyqubo expression for the Number Partitioning Hamiltonian.
 
     variables = (x1, x2, x3, x4, x5) as above.
@@ -81,8 +81,31 @@ def build_hamiltonian(variables, values):
     optimization problem, but we have not sampled it yet.
     """
 
+    if len(variables) != len(values):
+        raise ValueError(
+            'variables and values must contain the same number of elements.'
+        )
+
+    weighted_terms = [
+        variable * value
+        for variable, value in zip(variables, values)
+    ]
+
+    # Python's sum() starts from the integer 0. For an empty iterable, Pylance
+    # therefore infers that selected_sum (and consequently the Hamiltonian)
+    # might be an int, and later reports that int has no compile() method.
+    # Number Partitioning needs at least one value, so state that requirement
+    # explicitly and accumulate from a genuine pyqubo symbolic expression.
+    if not weighted_terms:
+        raise ValueError(
+            'A Number Partitioning instance must contain at least one value.'
+        )
+
+    selected_sum: Base = weighted_terms[0]
+    for weighted_term in weighted_terms[1:]:
+        selected_sum = selected_sum + weighted_term
+
     total = sum(values)
-    selected_sum = sum(x * v for x, v in zip(variables, values))
     return (total - 2 * selected_sum) ** 2
 
 
