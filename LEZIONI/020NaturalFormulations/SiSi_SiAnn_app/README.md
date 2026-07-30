@@ -1,28 +1,28 @@
 # SiSi_SiAnn
 
-`SiSi_SiAnn.py` is a small application derived from the classroom script
-`NumberPartitioning_SiAnn.py`.
+`SiSi_SiAnn.py` is a small application derived from the script
+`../SiSi_SiAnn.py`.
 
 It accepts an arbitrary integer sequence
 
 ```text
-S = (v_1, ..., v_n)
+S = <v_1, ..., v_n>
 ```
 
 and searches, by simulated annealing, for a subset `T` whose sum equals the sum
-of its complement `S \ T`.
+of its complement `S\T`.
 
 ## Files
 
-- `SiSi_SiAnn.py`: application entry point. It can run interactively or from the
+- `./SiSi_SiAnn.py`: application entry point. It can run interactively or from the
   command line. The solver import is delayed so that interpreter/dependency
   errors are reported clearly.
-- `sisi_qubo.py`: direct construction of the QUBO/BQM for the Hamiltonian.
+- `./sisi_qubo.py`: direct construction of the QUBO/BQM for the Hamiltonian.
   It implements the coefficients derived in the notes and does not require
   `pyqubo` at runtime.
-- `sisi_tuning.py`: deterministic `n`-based tuning rules for `num_reads` and
+- `./sisi_tuning.py`: deterministic `n`-based tuning rules for `num_reads` and
   `num_sweeps`.
-- `sisi_solver.py`: batched simulated-annealing search and result decoding.
+- `./sisi_solver.py`: batched simulated-annealing search and result decoding.
 
 Each function now has a docstring or inline comments explaining its role in the
 mathematical-to-computational pipeline.
@@ -31,7 +31,7 @@ mathematical-to-computational pipeline.
 
 The code expects the D-Wave Ocean packages that provide `dimod` and `neal`.
 
-When using a conda environment, the easiest classroom workflow is often to open
+When using a conda environment, the easiest workflow is often to open
 this folder in an IDE that already uses the correct environment, then run
 `SiSi_SiAnn.py` directly. In that case the script starts in interactive mode and
 asks for the data.
