@@ -76,5 +76,5 @@ print("Energia:{},  risposta:{}.".format(best_energy, answers))
 
 
 # Plot grafico energie
-from plot_energies import plot_energies
-plot_energies(sampleset)
+# from plot_energies import plot_energies
+# plot_energies(sampleset)

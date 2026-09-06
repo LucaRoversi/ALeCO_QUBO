@@ -16,5 +16,8 @@
         "sampleset",
         "samplset",
         "subhs"
+    ],
+    "python.analysis.extraPaths": [
+        "./010IllustrativeExamplesDefinitions/PLOT_RELATED/NOK"
     ]
 }

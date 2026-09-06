@@ -10,5 +10,8 @@
         "QUBO",
         "sampleset",
         "subhs"
+    ],
+    "python.analysis.extraPaths": [
+        "./LEZIONI/010IllustrativeExamplesDefinitions/ESEMPI_ESSENZIALI/NOK/EsempiEssenziali_dwave_"
     ]
 }

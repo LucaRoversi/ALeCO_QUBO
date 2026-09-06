@@ -66,13 +66,13 @@ print("Campionamento spazio stati con Simulated Annealing:\n", sampleset_SA)
 ##############################################
 # Campionatore con DWaveSampler
 ##############################################
-from dwave.system.samplers import DWaveSampler
-from dwave.system.composites import EmbeddingComposite
-import dwave.inspector
+# from dwave.system.samplers import DWaveSampler
+# from dwave.system.composites import EmbeddingComposite
+# import dwave.inspector
 
-DWHS = EmbeddingComposite(DWaveSampler())
-c_strength = 1  # Più il valore è alto, più può essere difficile trovare la risposta (a causa della precisione dell'hardware?)
-ann_time   = 20 # Potrebbe corrispondere al parametro num_sweep di SimulatedAnnealingSampler(?) 
+# DWHS = EmbeddingComposite(DWaveSampler())
+# c_strength = 1  # Più il valore è alto, più può essere difficile trovare la risposta (a causa della precisione dell'hardware?)
+# ann_time   = 20 # Potrebbe corrispondere al parametro num_sweep di SimulatedAnnealingSampler(?) 
 
-sampleset_DWHS = DWHS.sample(bqm, chain_strength=c_strength, num_reads=n_reads, annealing_time=ann_time)
-dwave.inspector.show(sampleset_DWHS)
+# sampleset_DWHS = DWHS.sample(bqm, chain_strength=c_strength, num_reads=n_reads, annealing_time=ann_time)
+# dwave.inspector.show(sampleset_DWHS)
